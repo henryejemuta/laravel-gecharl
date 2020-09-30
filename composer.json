@@ -1,0 +1,64 @@
+{
+    "name": "henryejemuta/laravel-gecharl",
+    "description": "A laravel package to seamlessly integrate Gecharl Connect API into your laravel application",
+    "keywords": [
+        "henryejemuta",
+        "laravel-gecharl",
+        "payment",
+        "bill payment",
+        "Utility Bills",
+        "Cable Bills",
+        "Airtime",
+        "Data Bundle",
+        "Nigeria"
+    ],
+    "homepage": "https://github.com/henryejemuta/laravel-gecharl",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Henry Ejemuta",
+            "email": "henry.ejemuta@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "^7.0|^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "1.*",
+        "orchestra/testbench": "^5.0|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Henryejemuta\\LaravelGecharl\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Henryejemuta\\LaravelGecharl\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GecharlServiceProvider"
+            ],
+            "aliases": {
+                "LaravelGecharl": "Gecharl"
+            }
+        }
+    }
+}
