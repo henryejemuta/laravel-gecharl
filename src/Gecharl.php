@@ -1,9 +1,9 @@
 <?php
 
-namespace Henryejemuta\LaravelGecharl;
+namespace HenryEjemuta\LaravelGecharl;
 
-use Henryejemuta\LaravelGecharl\Classes\GecharlResponse;
-use Henryejemuta\LaravelGecharl\Exceptions\GecharlErrorException;
+use HenryEjemuta\LaravelGecharl\Classes\GecharlResponse;
+use HenryEjemuta\LaravelGecharl\Exceptions\GecharlErrorException;
 use Illuminate\Support\Facades\Http;
 
 class Gecharl
@@ -67,8 +67,8 @@ class Gecharl
     }
 
     /**
-     * Purchase Airtime with py specifying the network (i.e. mtn, glo, airtel, or etisalat to buy airtime corresponding the provided telco service code)
-     * @param string $network Network ID e.g mtn, glo, airtel, or etisalat
+     * Purchase Airtime with py specifying the network (i.e. mtn, glo, airtel, or 9mobile to buy airtime corresponding the provided telco service code)
+     * @param string $network Network ID e.g mtn, glo, airtel, or 9mobile
      * @param int $amount The amount you wish to topup
      * @param string $phoneNumber The phone number of the recipient of this service
      * @return GecharlResponse
@@ -197,7 +197,7 @@ class Gecharl
     }
 
     /**
-     * Multichoice Smart Card Number/Decoder verification
+     * Multichoice(DSTV and GoTv) Smart Card Number/Decoder verification
      * You need to verify your Smart card number before purchasing.
      *
      * @param string $multichoiceType DSTV|GOTV
@@ -217,7 +217,7 @@ class Gecharl
     }
 
     /**
-     *
+     * Purchase DSTV or GoTv Cable Tv Plan
      * @param string $multiChoiceType DSTV|GOTV
      * @param string $smartCardNumber Customer unique smart card number to subscribe
      * @param $amount
@@ -239,9 +239,63 @@ class Gecharl
             "product_code" => $plan,
             "productCode" => $productCode,
         ];
-        if ($customerName !== null) $params['customer_name'] = $customerName;
-        if ($customerPhoneNumber !== null) $params['phone_number'] = $customerPhoneNumber;
+        if (empty($customerName)) $params['customer_name'] = $customerName;
+        if (empty($customerPhoneNumber)) $params['phone_number'] = $customerPhoneNumber;
         if ($transactionId !== null) $params['transaction_id'] = $transactionId;
+        $response = $this->withOAuth2()->post($endpoint, $params);
+
+        $responseObject = json_decode($response->body());
+        if ($response->successful())
+            return new GecharlResponse($responseObject->status_code, $responseObject->message);
+        return new GecharlResponse(-1, null);
+    }
+
+
+    /**
+     * StarTimes Smart Card Number/Decoder verification
+     * You need to verify your Smart card number before purchasing.
+     *
+     * @param string $smartCardNumber Customer unique smart card number to subscribe
+     * @return GecharlResponse
+     * @throws GecharlErrorException
+     */
+    public function verifyStarTimesSmartCardNumber(string $smartCardNumber): GecharlResponse
+    {
+        $endpoint = "{$this->baseUrl}/validate/startimes?smart_card_no=$smartCardNumber";
+        $response = $this->withOAuth2()->get($endpoint);
+
+        $responseObject = json_decode($response->body());
+        if ($response->successful())
+            return new GecharlResponse($responseObject->status_code, $responseObject->message);
+        return new GecharlResponse(-1, null);
+    }
+
+    /**
+     * Purchase StarTimes Cable Tv Plan
+     * The product_code is either <strong>NOVA</strong>, <strong>BASIC</strong>, <strong>SMART</strong>, <strong>CLASSIC</strong> or <strong>SUPER</strong>
+     *
+     * @param string $smartCardNumber Customer unique smart card number to subscribe
+     * @param $amount
+     * @param string $productCode productCode as gotten from the verification call
+     * @param string $plan Unique product_code as gotten from the verification call for available plan for the provided SmartCard Number
+     * @param string $customerPhoneNumber
+     * @param string $customerName
+     * @param string|null $transactionId
+     * @return GecharlResponse
+     * @throws GecharlErrorException
+     */
+    public function purchaseStarTimes(string $smartCardNumber, $amount, string $productCode, string $plan, string $transactionId, string $customerPhoneNumber = '', string $customerName = ''): GecharlResponse
+    {
+        $endpoint = "{$this->baseUrl}/startimes/payment";
+        $params = [
+            "smart_card_no" => $smartCardNumber,
+            "amount" => $amount,
+            "product_code" => $plan,
+            "productCode" => $productCode,
+            "transaction_id" => $transactionId,
+        ];
+        if (empty($customerName)) $params['customer_name'] = $customerName;
+        if (empty($customerPhoneNumber)) $params['phone_number'] = $customerPhoneNumber;
         $response = $this->withOAuth2()->post($endpoint, $params);
 
         $responseObject = json_decode($response->body());

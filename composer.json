@@ -35,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Henryejemuta\\LaravelGecharl\\": "src"
+            "HenryEjemuta\\LaravelGecharl\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Henryejemuta\\LaravelGecharl\\Tests\\": "tests"
+            "HenryEjemuta\\LaravelGecharl\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +54,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "GecharlServiceProvider"
+                "HenryEjemuta\\LaravelGecharl\\GecharlServiceProvider"
             ],
             "aliases": {
-                "LaravelGecharl": "Gecharl"
+                "Gecharl": "HenryEjemuta\\LaravelGecharl\\Facades\\Gecharl"
             }
         }
     }

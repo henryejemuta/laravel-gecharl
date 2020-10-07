@@ -7,7 +7,7 @@
  * Time Created: 6:00 PM
  */
 
-namespace Henryejemuta\LaravelGecharl\Console;
+namespace HenryEjemuta\LaravelGecharl\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;

@@ -9,7 +9,7 @@
  * Time Created: 7:24 PM
  */
 
-namespace Henryejemuta\LaravelGecharl\Exceptions;
+namespace HenryEjemuta\LaravelGecharl\Exceptions;
 
 
 class GecharlErrorException extends \Exception

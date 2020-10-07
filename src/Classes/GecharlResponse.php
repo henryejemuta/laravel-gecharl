@@ -9,10 +9,10 @@
  * Time Created: 6:00 PM
  */
 
-namespace Henryejemuta\LaravelGecharl\Classes;
+namespace HenryEjemuta\LaravelGecharl\Classes;
 
 
-use Henryejemuta\LaravelGecharl\Exceptions\GecharlErrorException;
+use HenryEjemuta\LaravelGecharl\Exceptions\GecharlErrorException;
 
 class GecharlResponse
 {

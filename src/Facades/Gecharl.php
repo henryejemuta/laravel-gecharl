@@ -1,8 +1,8 @@
 <?php
 
-namespace Henryejemuta\LaravelGecharl\Facades;
+namespace HenryEjemuta\LaravelGecharl\Facades;
 
-use Henryejemuta\LaravelGecharl\Classes\GecharlResponse;
+use HenryEjemuta\LaravelGecharl\Classes\GecharlResponse;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static GecharlResponse verifySmartCardNumber(string $multichoiceType, string $smartCardNumber)
  * @method static GecharlResponse purchaseMultiChoice(string $multiChoiceType, string $smartCardNumber, $amount, string $productCode, string $plan, string $customerPhoneNumber = '', string $customerName = '', string $transactionId = null)
  *
- * @see \Henryejemuta\LaravelGecharl\Gecharl
+ * @see \HenryEjemuta\LaravelGecharl\Gecharl
  */
 class Gecharl extends Facade
 {

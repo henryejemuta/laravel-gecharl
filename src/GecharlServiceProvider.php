@@ -1,8 +1,8 @@
 <?php
 
-namespace Henryejemuta\LaravelGecharl;
+namespace HenryEjemuta\LaravelGecharl;
 
-use Henryejemuta\LaravelGecharl\Console\InstallLaravelGecharl;
+use HenryEjemuta\LaravelGecharl\Console\InstallLaravelGecharl;
 use Illuminate\Support\ServiceProvider;
 
 class GecharlServiceProvider extends ServiceProvider
@@ -17,8 +17,8 @@ class GecharlServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-gecharl');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-gecharl');
-         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-         $this->loadRoutesFrom(__DIR__.'/routes.php');
+//         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+//         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

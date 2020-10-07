@@ -1,9 +1,9 @@
 <?php
 
-namespace Henryejemuta\LaravelGecharl\Tests;
+namespace HenryEjemuta\LaravelGecharl\Tests;
 
 use Orchestra\Testbench\TestCase;
-use Henryejemuta\LaravelGecharl\GecharlServiceProvider;
+use HenryEjemuta\LaravelGecharl\GecharlServiceProvider;
 
 class ExampleTest extends TestCase
 {
