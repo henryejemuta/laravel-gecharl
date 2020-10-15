@@ -63,7 +63,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if (isset($responseObject->status) && isset($responseObject->message))
             return new GecharlResponse($responseObject->status ? 200 : 422, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -86,7 +86,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if (isset($responseObject->status) && isset($responseObject->message))
             return new GecharlResponse($responseObject->status ? 200 : 422, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -104,7 +104,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse(200, $responseObject);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -123,7 +123,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -155,7 +155,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -193,7 +193,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -213,7 +213,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -247,7 +247,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
 
@@ -267,7 +267,7 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 
     /**
@@ -301,6 +301,6 @@ class Gecharl
         $responseObject = json_decode($response->body());
         if ($response->successful())
             return new GecharlResponse($responseObject->status_code, $responseObject->message);
-        return new GecharlResponse(-1, null);
+        return new GecharlResponse(504, null);
     }
 }

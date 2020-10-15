@@ -16,6 +16,7 @@ use HenryEjemuta\LaravelGecharl\Exceptions\GecharlErrorException;
 
 class GecharlResponse
 {
+    private $message;
 
     /**
      * @var bool
@@ -23,15 +24,9 @@ class GecharlResponse
     private $hasError;
 
     /**
-     * @var string $title
+     * @var int
      */
-    private $title;
-
-    /**
-     * Response Message as determined by status code
-     * @var string $message
-     */
-    private $message;
+    private $code;
 
     /**
      * Response Body from
@@ -39,36 +34,43 @@ class GecharlResponse
      */
     private $body;
 
-    /**
-     * @var array $additionalStatusDetails
-     */
-    private $additionalStatus;
+    const STATUS_MESSAGE = [
+        "200" => '200 OK',
+        "201" => '201 Created',
+        "203" => '203 Non-Authoritative Information',
+        "204" => '204 No Content',
+        "301" => '301 Moved Permanently',
+        "307" => '307 Temporary Redirect',
+        "308" => '308 Permanent Redirect',
+        "400" => '400 Bad Request',
+        "401" => '401 Unauthorized',
+        "402" => '402 Payment Required',
+        "403" => '403 Forbidden',
+        "404" => '404 Not Found',
+        "408" => '408 Request Timeout',
+        "413" => '413 Payload Too Large',
+        "414" => '414 URI Too Long',
+        "422" => '422 Unprocessable Entity',
+        "500" => '500 Internal Server Error',
+        "502" => '502 Bad Gateway',
+        "503" => '503 Service Unavailable',
+        "504" => '504 Gateway Timeout',
+        "505" => '505 HTTP Version Not Supported',
+    ];
+
 
     /**
      * GecharlResponse constructor.
-     * @param string $code
+     * @param int $code
      * @param object|array|null $responseBody
      * @throws GecharlErrorException
      */
-    public function __construct(string $code, $responseBody = null)
+    public function __construct(int $code, $responseBody = null)
     {
         $this->body = $responseBody;
-        $this->additionalStatus = [];
-        $this->title = "Empty Response";
-        $this->message = "Empty Response from VTPass server";
-        $this->hasError = false;
-
-        if (isset(GecharlResponse::RESPONSE["$code"])) {
-            $msg = GecharlResponse::RESPONSE["$code"];
-            $this->title = $msg['title'];
-            $this->message = $msg['message'];
-            $this->hasError = $msg['error'];
-            if ("$code" === "000" && isset($responseBody->status)) {
-                if (isset(GecharlResponse::TRANSACTION_PROCESSED_STATUS["{$responseBody->status}"])) {
-                    $this->additionalStatus = GecharlResponse::TRANSACTION_PROCESSED_STATUS["{$responseBody->status}"];
-                }
-            }
-        }
+        $this->hasError = ($code == 200);
+        $this->code = $code;
+        $this->message = isset(self::STATUS_MESSAGE["{$this->code}"]) ? isset(self::STATUS_MESSAGE["{$this->code}"]) : 'Unable to determine response status.';
 
         if ($this->hasError)
             throw new GecharlErrorException($this->message, "$code");
@@ -82,14 +84,6 @@ class GecharlResponse
     public function successful(): bool
     {
         return !($this->hasError);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
     }
 
     /**
