@@ -68,7 +68,7 @@ class GecharlResponse
     public function __construct(int $code, $responseBody = null)
     {
         $this->body = $responseBody;
-        $this->hasError = ($code == 200);
+        $this->hasError = ($code !== 200);
         $this->code = $code;
         $this->message = isset(self::STATUS_MESSAGE["{$this->code}"]) ? isset(self::STATUS_MESSAGE["{$this->code}"]) : 'Unable to determine response status.';
 
@@ -84,6 +84,14 @@ class GecharlResponse
     public function successful(): bool
     {
         return !($this->hasError);
+    }
+
+    /**
+     * @return int
+     */
+    public function getCode(): int
+    {
+        return $this->code;
     }
 
     /**
