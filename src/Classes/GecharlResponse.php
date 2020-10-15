@@ -72,8 +72,10 @@ class GecharlResponse
         $this->code = $code;
         $this->message = isset(self::STATUS_MESSAGE["{$this->code}"]) ? isset(self::STATUS_MESSAGE["{$this->code}"]) : 'Unable to determine response status.';
 
-        if ($this->hasError)
-            throw new GecharlErrorException((!is_null($responseBody) ? print_r($responseBody, true) : $this->message), "$code");
+        if ($this->hasError) {
+            $msg = !is_null($responseBody) ? print_r($responseBody, true) : $this->message;
+            throw new GecharlErrorException("$msg", "$code");
+        }
 
     }
 
