@@ -77,7 +77,7 @@ class Gecharl
      */
     public function purchaseAirtime(string $network, int $amount, $phoneNumber): GecharlResponse
     {
-        $response = $this->withOAuth2()->post("{$this->baseUrl}/account", [
+        $response = $this->withOAuth2()->post("{$this->baseUrl}/account?username={$this->config['username']}", [
             'network' => $network,
             'amount' => $amount,
             'phone_number' => $phoneNumber
